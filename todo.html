@@ -40,7 +40,7 @@
                     return (
                         <div>
                             <button onClick={this.onClickBtn}>{buttonText}</button>
-                            <span style={textStyle}>{this.props.content}</span>
+                            <span style={textStyle}>{this.props.content.text}</span>
                             <button onClick={this.onDelete}>Delete</button>
                         </div>
                     );
@@ -58,7 +58,7 @@
                                 return <TodoItem
                                         handleDelete = {this.props.handleDelete}
                                         content= {content}
-                                        key = {index}
+                                        key = {content.id}
                                         index={index}/>
                         })}
                         </div>
@@ -89,7 +89,7 @@
                 render() {
                     return (
                         <div>
-                            <input onChange={this.onInputChange}></input>
+                            <input onChange={this.onInputChange} value={this.state.userInput} type="text" />
                             <button onClick={this.onAdd}>Add</button>
                         </div>
                     );
@@ -100,7 +100,12 @@
                 constructor(props) {
                     super(props);
                     this.state = {
-                        todos: ['Hello', 'Kitty', 'Golden', 'State']
+                        todos: [
+                            { id: 1, text: 'eat'},
+                            { id: 2, text: 'study'},
+                            { id: 3, text: 'work'},
+                            { id: 4, text: 'sleep'}
+                            ]
                     }
                     this.handleAdd = this.handleAdd.bind(this);
                     this.handleDelete = this.handleDelete.bind(this);
@@ -110,7 +115,7 @@
                     this.setState(prevState => {
                         return {
                             todos: [
-                                ...prevState.todos, content
+                                ...prevState.todos, { id: Date.now(), text: content}
                             ]
                         };
                     });
